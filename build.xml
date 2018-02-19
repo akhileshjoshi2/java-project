@@ -9,8 +9,7 @@
   <property name="dist.dir" location="dist" />
 
   <path id="class.path">
-    <pathelement location="./lib/junit-4.10.jar" />
-    <pathelement location="${build.dir}" />
+    <pathelement location="./bin" />
   </path>
 
   <!-- Deletes the existing build, docs and dist directory-->
