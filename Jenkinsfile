@@ -46,7 +46,7 @@ pipeline {
 }
     stage("Test on Debian"){
      agent{
-      docker 'openjdk:8u151-jre-alpine'
+      docker 'openjdk:8-jre-alpine'
 }
      steps{
       sh "wget http://satishdasi5b.mylabserver.com/rectangles/all/rectangle_${env.BUILD_NUMBER}.jar"
