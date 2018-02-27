@@ -20,7 +20,7 @@ pipeline {
     stage('deploy') {
       steps{
 
-	sh "cp dist/rectangle_${env.MAJOR_VERSION}.11.jar /var/www/html/rectangles/all"
+	sh "cp dist/*.jar /var/www/html/rectangles/all"
 }
 
 }
