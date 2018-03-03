@@ -30,7 +30,7 @@ pipeline {
        label 'apache'
 }
       steps{
-        sh "if ![ -d '/var/www/html/rectangles/all/${env.BRANCH_NAME}' ]; then mkdir /var/www/html/rectangles/all/${env.BRANCH_NAME}; fi"
+        sh "if ![ -d '/var/www/html/rectangles/all/${env.BRANCH_NAME}' ]; then mkdir /var/www/html/rectangles/all/${env.BRANCH_NAME}/; fi"
         sh "cp dist/rectangle_${env.BUILD_NUMBER}.jar /var/www/html/rectangles/all/${env.BRANCH_NAME}/"
 }
 
@@ -82,7 +82,7 @@ sh "wget http://satishdasi5.mylabserver.com/rectangles/all/${env.BRANCH_NAME}/re
      sh 'git merge development'
      echo "Pushing origin to master"
      sh 'git push origin master'
-	 echo "hello"
+     echo "hello"
 }
 }
 }
