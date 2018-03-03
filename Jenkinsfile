@@ -1,10 +1,7 @@
 pipeline {
  agent none
-<<<<<<< HEAD
 
-=======
   
->>>>>>> development
   stages {
    stage('Unit Tests'){
     agent {
@@ -27,8 +24,6 @@ pipeline {
         archiveArtifacts artifacts: 'dist/*.jar', fingerprint:true
 }
 }
-<<<<<<< HEAD
-=======
 
     }
     stage('deploy') {
@@ -90,7 +85,6 @@ pipeline {
      sh 'git push origin master'
      echo "hello"
 } 
->>>>>>> development
 }
 }
 }
