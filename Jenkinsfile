@@ -77,8 +77,11 @@ sh "wget http://satishdasi5.mylabserver.com/rectangles/all/${env.BRANCH_NAME}/re
      echo "checking in the development branch"
      sh 'git checkout development'
      echo "checking out the master branch"
+     sh 'git pull origin'
      sh 'git checkout master'
      echo "Meriging development into master branch"
+     echo "hello"
+     sh 'git pull origin'
      sh 'git merge development'
      echo "Pushing origin to master"
      sh 'git push origin master'
