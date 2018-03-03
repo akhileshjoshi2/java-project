@@ -80,9 +80,6 @@ pipeline {
      sh 'git pull origin'
      sh 'git checkout master'
      echo "Meriging development into master branch"
-     sh 'git merge development'
-     echo "Pushing origin to master"
-     sh 'git push origin master'
      echo "hello"
 } 
 }
