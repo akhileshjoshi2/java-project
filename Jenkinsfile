@@ -29,9 +29,9 @@ pipeline {
       agent {
        label 'apache'
 }
-      steps{
-       
-	sh "cp dist/rectangle_${env.BUILD_NUMBER}.jar /var/www/html/rectangles/all/"
+      steps{ 
+        sh "if ![ -d '/var/www/html/rectangles/all/${env.BRANCH_NAME}' ]; then mkdir /var/www/html/rectangles/all/${env.BRANCH_NAME}; fi"
+	sh "cp dist/rectangle_${env.BUILD_NUMBER}.jar /var/www/html/rectangles/all/${env.BRANCH_NAME}/"
 }
 
 }    
@@ -40,7 +40,7 @@ pipeline {
       label 'Centos'
 }
      steps {
-      sh "wget http://satishdasi5.mylabserver.com/rectangles/all/rectangle_${env.BUILD_NUMBER}.jar"
+      sh "wget http://satishdasi5.mylabserver.com/rectangles/all/${env.BRANCH_NAME}/rectangle_${env.BUILD_NUMBER}.jar"
       sh "java -jar rectangle_${env.BUILD_NUMBER}.jar 3 4"  
 }
 }
@@ -49,7 +49,7 @@ pipeline {
       docker 'openjdk:8u151-jre'
 }
      steps{
-      sh "wget http://satishdasi5.mylabserver.com/rectangles/all/rectangle_${env.BUILD_NUMBER}.jar"
+      sh "wget http://satishdasi5.mylabserver.com/rectangles/all/${env.BRANCH_NAME}/rectangle_${env.BUILD_NUMBER}.jar"
       sh "java -jar rectangle_${env.BUILD_NUMBER}.jar 3 4"
 }
 }   
@@ -58,11 +58,31 @@ pipeline {
       label 'apache'
 }   
      when{
-      branch 'development'
+      branch 'master'
 }
      steps{
-      sh "cp /var/www/html/rectangles/all/rectangle_${env.BUILD_NUMBER}.jar /var/www/html/rectangles/green/rectangle_${env.BUILD_NUMBER}.jar"
+      sh "cp /var/www/html/rectangles/all/${env.BRANCH_NAME}/rectangle_${env.BUILD_NUMBER}.jar /var/www/html/rectangles/green/rectangle_${env.BUILD_NUMBER}.jar"
 }
+}  
+    stage('Promote development to master'){
+     agent{
+      label 'apache'
+}
+     when{
+      branch 'development'
+}  
+    steps{
+     echo "stashing any local change"
+     sh 'git stash' 
+     echo "checking in the development branch"
+     sh 'git checkout development'
+     echo "checking out the master branch"
+     sh 'git checkout master'
+     echo "Meriging development into master branch"
+     sh 'git merge development'
+     echo "Pushing origin to master"
+     sh 'git push origin master'
+} 
 }
 }
 }
