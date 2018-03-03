@@ -82,6 +82,7 @@ pipeline {
      sh 'git merge development'
      echo "Pushing origin to master"
      sh 'git push origin master'
+     echo "hello"
 } 
 }
 }
