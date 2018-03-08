@@ -11,7 +11,7 @@ pipeline {
 }
 } 
    stage('Git Information'){ 
-    agnet any
+    agent any
      steps{
       echo "My branch NAme: ${env.BRANCH_NAME}"
       script {
