@@ -71,8 +71,7 @@ pipeline{
       when {
         branch 'development'
       }
-      steps {
-	sh 'git remote set-url origin git@github.com:akhileshjoshi2/java-project.git'      
+      steps {   
         echo "Stashing Any Local Changes"
         sh 'git stash'
         echo "Checking Out Development Branch"
