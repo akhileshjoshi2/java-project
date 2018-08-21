@@ -34,8 +34,8 @@ pipeline{
          label 'apache'
         }
 	steps{
-         sh "if ![ -d '/var/www/html/rectangles/all/${env.BRANCH_NAME}' ]; then mkdir -p /var/www/html/rectangles/all/${env.BRANCH_NAME}; fi"
-        sh "cp dist/rectangle_${env.MAJOR_VERSION}.${env.BUILD_NUMBER}.jar /var/www/html/rectangles/all/${env.BRANCH_NAME}"
+         sh "if ![ -d '/var/www/html/rectangles/all/${env.BRANCH_NAME}' ]; then mkdir /var/www/html/rectangles/all/${env.BRANCH_NAME}; fi"
+         sh "cp dist/rectangle_${env.MAJOR_VERSION}.${env.BUILD_NUMBER}.jar /var/www/html/rectangles/all/${env.BRANCH_NAME}/"
          }
       }
       stage("Running on Cent0S"){
@@ -75,7 +75,19 @@ pipeline{
         branch 'development'
       }
       steps {   
-                
+        echo "Stashing Any Local Changes"
+        sh 'git stash'
+        echo "Checking Out Development Branch"
+        sh 'git checkout development'
+	sh 'git pull origin'      
+        echo 'Checking Out Master Branch'
+        sh 'git checkout master'
+        echo 'Merging Development into Master Branch'
+        sh 'git merge development'
+        echo 'Pushing to Origin Master'
+        sh 'git push origin master'
+	sh "git tag rectangle-${env.MAJOR_VERSION}.${env.BUILD_NUMBER}"    
+	sh "git push origin rectangle-${env.MAJOR_VERSION}.${env.BUILD_NUMBER}"         
       }
     }   
   }  
