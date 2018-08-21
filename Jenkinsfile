@@ -85,7 +85,6 @@ pipeline{
         echo 'Merging Development into Master Branch'
         sh 'git merge development'
         echo 'Pushing to Origin Master'
-        sh 'git pull origin'
         sh 'git push origin master'
 	sh "git tag rectangle-${env.MAJOR_VERSION}.${env.BUILD_NUMBER}"    
 	sh "git push origin rectangle-${env.MAJOR_VERSION}.${env.BUILD_NUMBER}"         
